@@ -2,19 +2,30 @@ import { useEffect } from "react";
 import CartContainer from "./components/CartContainer";
 import NavBar from "./components/NavBar";
 import { useDispatch, useSelector } from "react-redux";
-import { calculating } from "./features/cart/cartSlice";
+import { calculating, getCartItems } from "./features/cart/cartSlice";
 import Modal from "./components/Modal";
 
 function App() {
-  const { cartItems } = useSelector((store) => store.carter);
-  const dispatch = useDispatch();
-
+  const { cartItems, isLoading } = useSelector((store) => store.carter);
   const { isOpen } = useSelector((store) => store.modaler);
-  // console.log(isOpen);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(calculating());
   }, [cartItems]);
+
+  useEffect(() => {
+    dispatch(getCartItems("testing"));
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="loading">
+        <h1>Loading...</h1>
+      </div>
+    );
+  }
 
   return (
     <main>

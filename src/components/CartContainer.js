@@ -25,7 +25,7 @@ const CartContainer = () => {
         <h2>your bag</h2>
       </header>
       <div>
-        {cartItems.map((each) => {
+        {cartItems.map((each, i) => {
           return <CartItem key={each.id} {...each} />;
         })}
       </div>
